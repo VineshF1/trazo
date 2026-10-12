@@ -1,0 +1,14 @@
+# Trazo runtime and test dependencies.
+# Python 3.10 or newer. Developed and verified on CPython 3.12.
+fastapi
+uvicorn[standard]
+python-multipart
+openai
+pydantic
+pillow
+opencv-python-headless
+rapidfuzz
+python-dotenv
+pytest
+httpx
+pandas

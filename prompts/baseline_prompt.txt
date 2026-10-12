@@ -1,0 +1,2 @@
+Read this prescription. Return only JSON in this format:
+{"medicines":[{"name":null,"strength":null,"timing_code":null,"duration":null}]}

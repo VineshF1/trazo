@@ -1,0 +1,12 @@
+You are reading a photo of a doctor's prescription.
+Return only JSON in exactly this format, with no other text:
+{"medicines":[{"name":null,"strength":null,"timing_code":null,"duration":null,"confidence":0.0,"unclear":false}],"notes":""}
+
+Rules:
+- List only medicines that are written on the page.
+- If a word is not readable with high certainty, set "unclear" to true and "name" to null.
+- Never replace an unreadable word with a similar real medicine name.
+- Copy the timing code exactly as written (for example 1-0-1, BD, SOS). Do not translate it.
+- Use null for any field you cannot read.
+- Do not add medicines that are not on the page.
+- "notes" should mention anything on the page you could not read at all.

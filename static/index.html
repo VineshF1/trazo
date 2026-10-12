@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Trazo reads a photographed prescription and lists its medicines. A reading aid, not medical advice.">
+  <title>Trazo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="masthead">
+      <p class="wordmark">trazo</p>
+    </header>
+
+    <main id="main">
+      <!-- Home -->
+      <section id="screen-home" aria-labelledby="home-title">
+        <h1 id="home-title">Read a prescription photo</h1>
+        <p class="lede">Take a photo of the prescription. Trazo lists the medicines written on it, and marks anything it cannot read.</p>
+        <div class="actions">
+          <input class="file-input" id="input-camera" type="file" accept="image/*" capture="environment">
+          <label class="btn btn-primary" for="input-camera">Take photo</label>
+          <input class="file-input" id="input-gallery" type="file" accept="image/*">
+          <label class="btn" for="input-gallery">Choose from gallery</label>
+        </div>
+        <p class="safety" id="home-safety">This is a reading aid, not medical advice. Confirm with your pharmacist.</p>
+      </section>
+
+      <!-- Loading -->
+      <section id="screen-loading" hidden aria-labelledby="loading-title" aria-live="polite">
+        <h1 id="loading-title">Reading the photo</h1>
+        <img id="loading-thumb" class="thumb" alt="The prescription photo being read">
+        <div class="rows" aria-hidden="true">
+          <div class="placeholder-row"><span class="ph ph-wide"></span><span class="ph"></span></div>
+          <div class="placeholder-row"><span class="ph ph-wide"></span><span class="ph"></span></div>
+          <div class="placeholder-row"><span class="ph ph-wide"></span><span class="ph"></span></div>
+        </div>
+      </section>
+
+      <!-- Result -->
+      <section id="screen-result" hidden aria-labelledby="result-title">
+        <p class="banner" id="result-banner"></p>
+        <h1 id="result-title">Medicines on this page</h1>
+        <button id="result-thumb-btn" class="thumb-btn" aria-expanded="false" aria-label="Enlarge prescription photo">
+          <img id="result-thumb" class="thumb" alt="The prescription photo that was read">
+        </button>
+        <ol id="result-rows" class="rows"></ol>
+        <div id="result-notes-wrap" hidden>
+          <h2 class="subhead">Notes from the page</h2>
+          <p id="result-notes" class="notes"></p>
+        </div>
+        <div class="actions footer-actions">
+          <input class="file-input" id="input-again-camera" type="file" accept="image/*" capture="environment">
+          <label class="btn btn-primary" for="input-again-camera">Take new photo</label>
+          <input class="file-input" id="input-again-gallery" type="file" accept="image/*">
+          <label class="btn" for="input-again-gallery">Choose different photo</label>
+        </div>
+      </section>
+
+      <!-- Error -->
+      <section id="screen-error" hidden aria-labelledby="error-title">
+        <h1 id="error-title">The photo could not be read</h1>
+        <p class="lede" id="error-message"></p>
+        <div class="actions">
+          <input class="file-input" id="input-retry-camera" type="file" accept="image/*" capture="environment">
+          <label class="btn btn-primary" for="input-retry-camera">Try with a new photo</label>
+          <input class="file-input" id="input-retry-gallery" type="file" accept="image/*">
+          <label class="btn" for="input-retry-gallery">Choose different photo</label>
+        </div>
+      </section>
+    </main>
+
+    <footer class="colophon">
+      <p>Photos are never stored. Only correction text is ever saved.</p>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

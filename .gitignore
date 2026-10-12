@@ -1,0 +1,23 @@
+# Agent instruction files, planning notes and handoff (not part of the app)
+.hermes/
+
+# Environments and caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Secrets
+.env
+
+# Data: databases and the medicine CSV are built or supplied locally, never committed
+data/*.db
+data/*.sqlite
+data/*.csv
+
+# Real prescriptions and evaluation outputs contain patient data: never commit
+tests_local/prescriptions/*
+!tests_local/prescriptions/.gitkeep
+eval/results/*
+!eval/results/.gitkeep
+eval/expected.csv
