@@ -4,8 +4,8 @@ Photograph a doctor's prescription and get back every medicine with its strength
 
 Ask it about a messy paper slip — the kind with `T. SAZO 500 BD`, `1-0-1`, `1/3` scrawled down the margin — and Trazo turns it into a clean table:
 
-> **SAZO 500mg — twice a day (morning & night) — 60 days — ✅ OK**
-> **HCQS? — ⚠️ Check this — did you mean HCQS 200?**
+> **SAZO 500mg — twice a day (morning & night) — 60 days — OK**
+> **HCQS? — Check this — did you mean HCQS 200?**
 
 ---
 
@@ -39,7 +39,7 @@ Trazo flips that: the vision model only reads, and everything the reading touche
 
 ```mermaid
 graph TB
-    P["📱 Prescription photo"] --> Q["Quality gate<br/>(blur / brightness / size)"]
+    P["Prescription photo"] --> Q["Quality gate<br/>(blur / brightness / size)"]
     Q -->|"too bad → retake, no API call"| P
     Q --> V["Vision model reads → JSON"]
     V --> M["Match names against<br/>94-medicine list"]
@@ -68,18 +68,6 @@ Open the page on your phone and photograph a slip. `scripts/try_one.py` runs one
 
 ---
 
-## Deploy to Vercel
-
-The repo ships serverless-ready: `api/index.py` is the entry point, `vercel.json` routes everything to it, and the read-only medicine database rides in the bundle.
-
-1. Import this repo in the Vercel dashboard (framework preset: **Other**).
-2. Add the environment variable `NVIDIA_API_KEY`.
-3. Deploy.
-
-On the read-only serverless filesystem the corrections database moves to `/tmp`, and the model timeout is clamped to 55 s under the Hobby plan's 60 s function limit.
-
----
-
 ## Evaluation
 
 One command reproduces the numbers:
@@ -99,3 +87,11 @@ Real test photos and the answer key never leave the machine (git-ignored). Scori
 - The 94-medicine list bounds what can be confirmed; unknown names are flagged, never invented.
 - No dose advice, no interaction checks, no diagnosis. By design.
 - Free-tier model API: can be slow or rate-limited under load.
+
+---
+
+## Author
+
+Vinesh
+
+Built with love.
