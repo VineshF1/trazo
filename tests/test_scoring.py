@@ -37,7 +37,9 @@ def test_names_equal_does_not_treat_a_brand_and_a_generic_as_the_same():
 def test_normalize_timing_strips_and_uppercases():
     assert normalize_timing(" bd ") == "BD"
     assert normalize_timing(None) == ""
-    assert normalize_timing("1 - 0 - 1") == "1 - 0 - 1"
+    # Rule 5 of eval/scoring_rules.md: punctuation and spaces squash, so the
+    # model's spaced form compares equal to the key's compact form.
+    assert normalize_timing("1 - 0 - 1") == normalize_timing("1-0-1")
 
 
 def test_a_correct_row_is_correct():

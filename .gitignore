@@ -10,8 +10,11 @@ __pycache__/
 # Secrets
 .env
 
-# Data: databases and the medicine CSV are built or supplied locally, never committed
+# Data: databases are built or supplied locally, except the medicines list
+# database, which is read-only content (no patient data) and ships with the
+# app so the Vercel deployment can read it.
 data/*.db
+!data/medicines.db
 data/*.sqlite
 data/*.csv
 

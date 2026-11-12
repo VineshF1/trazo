@@ -1,0 +1,11 @@
+# Deploy dependencies (Vercel serverless function).
+# The full dev/test set lives in requirements.txt; this is the runtime subset.
+# opencv-python-headless is used for the photo blur/brightness quality check.
+fastapi
+python-multipart
+openai
+pydantic
+pillow
+opencv-python-headless
+rapidfuzz
+python-dotenv

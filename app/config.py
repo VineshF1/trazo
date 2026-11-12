@@ -89,3 +89,15 @@ load_dotenv(PROJECT_ROOT / ".env", override=False)
 DATA_DIR = PROJECT_ROOT / "data"
 MEDICINES_DB_PATH = DATA_DIR / "medicines.db"
 CORRECTIONS_DB_PATH = DATA_DIR / "corrections.db"
+
+# --- Serverless (Vercel) adjustments ---
+# On Vercel the filesystem is read-only except /tmp, so the corrections
+# database (the only file the app writes) moves to /tmp there. The medicines
+# database is read-only and ships inside the bundle. The model timeout is
+# clamped under the 60-second function limit (Hobby plan maximum).
+import os  # noqa: E402
+
+if os.environ.get("VERCEL"):
+    CORRECTIONS_DB_PATH = Path("/tmp/corrections.db")
+    if MODEL_TIMEOUT_SECONDS > 55:
+        MODEL_TIMEOUT_SECONDS = 55

@@ -65,7 +65,7 @@ def test_a_name_below_the_review_threshold_is_not_found():
 
 
 def test_a_name_between_the_thresholds_is_review_not_not_found():
-    result = match_name("Azithral", MEDS)
+    result = match_name("Azithral 5OO", MEDS)
     assert result.kind is MatchKind.REVIEW
     assert result.best.brand_name == "Azithral 500"
 
