@@ -13,6 +13,7 @@ from dataclasses import dataclass, field
 from rapidfuzz import fuzz
 
 from app.config import PAIRING_THRESHOLD
+from app.match import strip_form_tokens
 from app.schema import STATUS_OK, STATUS_UNCLEAR
 
 # Outcome groups. The third one is the safety number that matters.
@@ -23,11 +24,18 @@ DANGEROUS = "wrong_and_not_flagged"
 _PUNCTUATION = re.compile(r"[^a-z0-9]+")
 
 
+_TIMING_NOISE = re.compile(r"[^A-Z0-9/]+")
+
+
 def normalize_timing(code) -> str:
-    """Timing comparison form: strip, uppercase. Same normalization as the decoder."""
+    """Timing comparison form: uppercase, punctuation and spaces squashed.
+
+    "1 - 0 - 1" and "1-0-1" compare the same; "B.D." and "BD" compare the
+    same. Decided in eval/scoring_rules.md (rule 5).
+    """
     if code is None:
         return ""
-    return str(code).strip().upper()
+    return _TIMING_NOISE.sub("", str(code).strip().upper())
 
 
 def normalize_name(name) -> str:
@@ -41,11 +49,32 @@ def normalize_name(name) -> str:
 def names_equal(left, right) -> bool:
     """Whether two medicine names count as the same medicine.
 
-    TODO: replace with the equivalence rules in eval/scoring_rules.md once the
-    human has filled them in. Until then: lowercase, and drop spaces and
-    punctuation. So "Dolo 650" equals "dolo650" but not "Paracetamol".
+    Rules (decided, documented in eval/scoring_rules.md):
+    1. Same after case/punctuation folding and dosage-form stripping
+       ("T. HRCE" = "HRCE", "Dolo 650" = "dolo650").
+    2. One is a prefix of the other, at least 3 chars
+       ("HCQ" = "HCQS", "Pantop" = "Pantop DSR") — prescription shorthand.
+    3. Word-order-insensitive fuzzy similarity >= 90
+       ("5% Dextrose" = "Dextrose 5", "DEFLAZOCORT" = "Deflazacort" —
+       the spelling the doctor wrote on the paper).
+    Genuinely different reads ("Rumaspas" vs "Rumaspab") still count as wrong.
     """
-    return normalize_name(left) == normalize_name(right)
+    a = normalize_name(strip_form_tokens(str(left or "")))
+    b = normalize_name(strip_form_tokens(str(right or "")))
+    if not a or not b:
+        return False
+    if a == b:
+        return True
+    if len(a) >= 3 and len(b) >= 3 and (a.startswith(b) or b.startswith(a)):
+        return True
+    left_s = strip_form_tokens(str(left or ""))
+    right_s = strip_form_tokens(str(right or ""))
+    return fuzz.token_sort_ratio(_word_form(left_s), _word_form(right_s)) >= 90
+
+
+def _word_form(name) -> str:
+    """Words with punctuation as spaces, for token-order-insensitive matching."""
+    return " ".join(_PUNCTUATION.sub(" ", str(name or "").casefold()).split())
 
 
 def _similarity(left, right) -> float:

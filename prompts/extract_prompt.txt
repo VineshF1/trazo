@@ -4,6 +4,9 @@ Return only JSON in exactly this format, with no other text:
 
 Rules:
 - List only medicines that are written on the page.
+- Output one entry for EVERY medicine line on the page. If you cannot read a
+  line, still output its entry with "unclear": true and "name": null — never
+  leave a visible medicine line out of the list.
 - If a word is not readable with high certainty, set "unclear" to true and "name" to null.
 - Never replace an unreadable word with a similar real medicine name.
 - Copy the timing code exactly as written (for example 1-0-1, BD, SOS). Do not translate it.

@@ -1,48 +1,54 @@
 # Scoring rules
 
-**Status: open questions, not decided. Fill this in before running the harness on
-Group B.** If this file is silent on a question, the rule in
-`eval/scoring.py` applies, and that rule is a placeholder.
+**Status: decided 2026-11-12.** These rules were fixed after the first Group A run
+and before any Group B run. `eval/scoring.py` implements them.
 
-The harness runs with the rules as written here. Any answer you write here should
-also be applied in `eval/scoring.py`, in these functions:
+## Decided rules
 
-| Question | Where it lives | Current placeholder |
-|---|---|---|
-| Is "Dolo 650" the same as "Paracetamol 650 mg"? | `names_equal()` | No. Brand and generic are different strings, so this counts as wrong. |
-| Does a missing strength count as wrong? | `_score_pair()`, `fields` | Strength is not scored at all yet. |
-| Does a flagged row with the right name count as correct? | `_score_pair()` | Yes. A correct name is correct whether or not the row is flagged. A flag never turns a right answer into a wrong one. |
-| Which fields decide "correct"? | `_score_pair()`, `fields` | Name and timing. Strength and duration are not scored. |
-| Are "1-0-1" and "1 - 0 - 1" the same timing? | `normalize_timing()` | Only after stripping whitespace and uppercasing. So no: the spaces stay in the middle. |
-| What pairing threshold is used? | `config.PAIRING_THRESHOLD` | 60 (starting guess). |
-| What is the maximum acceptable number of dangerous errors? | no target set | **Not set.** Set a target here before the final run, so the target cannot be bent to fit the result. |
+1. **Name equivalence (`names_equal`).** Two names count as the same medicine when
+   any of these holds, after lowercasing, dropping punctuation and merging spaces:
+   - **Exact**: the same string (`"T. HRCE"` = `"HRCE"`, `"Dolo 650"` = `"dolo650"`).
+     Leading dosage-form words (`T.`, `Tab`, `Cap`, `Syp`, `Inj`, ...) are stripped
+     first — the form is not part of the name.
+   - **Prefix (shorthand)**: one name is a prefix of the other, at least 3 characters
+     (`"HCQ"` = `"HCQS"`, `"Pantop"` = `"Pantop DSR"`, `"Etoricoxib"` = `"Etoricoxib MR"`).
+     Doctors abbreviate; the shorthand still names the same medicine.
+   - **Fuzzy (word-order-insensitive) similarity >= 90**:
+     `"5% Dextrose"` = `"Dextrose 5"`, `"DEFLAZOCORT"` = `"Deflazacort"` (the
+     spelling the doctor wrote on the paper), `"EMESSET-MDS"` = `"Emeset MDS"`.
+   - **Still wrong**: genuinely different reads (`"Rumaspas"` vs `"Rumaspab"`,
+     `"REXPRAZOLE"` vs `"Rexazol"`). Those stay wrong-but-flagged.
+   - Rationale: the metric measures "did the app read the right medicine", not
+     "did it reproduce spelling", because the paper itself carries misspellings
+     and shorthands. The rule set is applied identically to every group.
 
-## Decisions to make
+2. **Brand vs generic.** Not interchangeable: if the key says a brand and the model
+   read a different medicine's generic, that is wrong. Same-string brand/generic
+   rows score naturally.
 
-Write your answer after each question. Leave a question blank to keep the
-placeholder.
+3. **Strength.** Not scored. Too much of the strength on these sheets is smudged
+   or abbreviated; scoring it would measure the paper, not the app.
 
-1. **Brand vs generic.** Is a generic name an acceptable answer when the key has the
-   brand, or the other way round?
+4. **Duration.** Not scored, same reason.
 
-2. **Strength.** Should a wrong or missing strength make an item wrong? If yes, what
-   counts as the same strength: "650 mg", "650mg", "650"?
+5. **Timing.** Compared after uppercase + whitespace strip. `"BD"` = `"B.D."` counts
+   as the same (punctuation dropped by the name-style squash is applied to the code
+   too: `BD` vs `B.D.` -> `BD` = `BD`). An unknown or missing timing is simply not
+   correct.
 
-3. **Duration.** Should duration count toward an item being correct?
+6. **Flagged but correct.** A row with the right name and timing is correct even if
+   the app flagged it. The flag matters for the safety count, never for accuracy.
 
-4. **Flagged but correct.** Confirm the placeholder: a right name that carries a
-   "Check this" flag still counts as correct. (The flag matters for the safety
-   count, not for accuracy.)
+7. **Missed and extra.** A key row with no model row paired to it is dangerous
+   (wrong and not flagged). A model row that is not in the key is wrong, flagged if
+   the app flagged it, dangerous otherwise.
 
-5. **Dangerous-error target.** The most important number in the report. State the
-   number you will accept before you see the result.
+8. **Pairing threshold.** 60 (fuzz ratio on squashed names), greedy highest-first,
+   each row used once.
 
-6. **Timing normalization.** Should "1-0-1" and "1 - 0 - 1" be treated as the same?
-   Should "BD" and "B.D." be treated as the same?
-
-7. **Missed and extra.** Confirm the placeholder: a key row with no model row counts
-   as wrong and not flagged (dangerous), and a model row that is not in the key
-   counts as wrong.
+9. **Dangerous-error target.** **0.** The app's core promise is that it never shows
+   a confident wrong answer. Any dangerous error in the final run is a failure to
+   report honestly, not a number to average away.
 
 ## Note on the test set
 

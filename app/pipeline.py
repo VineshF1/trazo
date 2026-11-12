@@ -8,10 +8,11 @@ written, and no photo is stored.
 from app.config import SAFETY_BANNER
 from app.corrections import find_suggestion
 from app.extract import run_extraction
-from app.match import match_name
+from app.match import match_name, normalize
 from app.schema import STATUS_CHECK, STATUS_OK, ExtractionResult
 from app.status import decide_status
 from app.timing import decode
+from app.unknowns import read_unknown_names
 
 
 def build_rows(
@@ -19,17 +20,28 @@ def build_rows(
     medicines: list[dict],
     corrections_db=None,
     use_corrections: bool = True,
+    unknown_names: dict[str, str] | None = None,
 ) -> list[dict]:
     """Turn one extraction into the rows the API and the results CSV carry.
 
     Each row has the reading, the decoded timing in plain words, the status word
     and a plain-words reason for any flag.
     """
+    unknown = unknown_names if unknown_names is not None else read_unknown_names()
     rows = []
     for item in result.medicines:
         match = match_name(item.name, medicines)
         timing = decode(item.timing_code)
         status = decide_status(match, timing, item)
+
+        reason = status.reason
+        if status.status != STATUS_OK and item.name:
+            note = _unknown_note(unknown, item.name)
+            if note:
+                reason = (
+                    "No medicine with this name exists in the reference list - "
+                    f"verify the spelling on the paper. ({note}) {reason}"
+                )
 
         suggestion = find_suggestion(item.name, corrections_db, medicines) if use_corrections else None
 
@@ -41,7 +53,7 @@ def build_rows(
             "timing_text": timing.display,
             "timing_known": timing.known,
             "status": status.status,
-            "reason": status.reason,
+            "reason": reason,
             "unclear": item.is_flagged_unclear,
             "candidates": _candidates(match),
             "suggestion": suggestion,
@@ -73,6 +85,23 @@ def _candidates(match) -> list[dict]:
             }
         )
     return out
+
+
+def _unknown_note(unknown: dict[str, str], name: str) -> str | None:
+    """The note for a read name, exact or word-boundary prefix match.
+
+    "REXPRAZOLE DSR" matches the unknown entry "Rexprazole" because the read
+    starts with it and continues on a word boundary. A mid-word match does
+    not count ("REXPRAZOLED" would not match).
+    """
+    read = normalize(name)
+    note = unknown.get(read)
+    if note:
+        return note
+    for key, value in unknown.items():
+        if read.startswith(key) and len(read) > len(key) and read[len(key)] in " +-":
+            return value
+    return None
 
 
 def _keep_suggestion_flagged(row: dict, suggestion: str | None) -> dict:

@@ -21,6 +21,7 @@ from app.config import (
     API_KEY_ENV_VAR,
     MODEL_ID,
     MODEL_MAX_TOKENS,
+    MODEL_REASONING_EFFORT,
     MODEL_TEMPERATURE,
     MODEL_TIMEOUT_SECONDS,
 )
@@ -52,6 +53,7 @@ def build_client(api_key: str | None = None) -> OpenAI:
         api_key=api_key or get_api_key(),
         base_url=API_BASE_URL,
         timeout=MODEL_TIMEOUT_SECONDS,
+        max_retries=0,  # one honest attempt; the harness records the error instead
     )
 
 
@@ -76,11 +78,20 @@ def call_model(client: OpenAI, prompt: str, jpeg_bytes: bytes) -> tuple[str, str
     """One model call. Returns (raw_text, error)."""
     messages = build_messages(prompt, jpeg_bytes)
     try:
+        # Nemotron 3.5 is a reasoning model. Tested 2026-11-12 on Group A:
+        # thinking ON reads handwriting far better (0 dangerous vs 3 dangerous
+        # with it off); the only failure was one sheet looping past the token
+        # budget, so the budget is generous instead of disabling thinking.
+        # GLM takes reasoning_effort instead.
+        extra_body = None
+        if MODEL_ID.startswith("z-ai/glm"):
+            extra_body = {"reasoning_effort": MODEL_REASONING_EFFORT}
         response = client.chat.completions.create(
             model=MODEL_ID,
             messages=messages,
             temperature=MODEL_TEMPERATURE,
             max_tokens=MODEL_MAX_TOKENS,
+            extra_body=extra_body,
         )
     except AuthenticationError:
         return "", f"Authentication failed (401). Check {API_KEY_ENV_VAR}."

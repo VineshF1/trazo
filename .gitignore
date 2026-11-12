@@ -17,7 +17,16 @@ data/*.csv
 
 # Real prescriptions and evaluation outputs contain patient data: never commit
 tests_local/prescriptions/*
+tests_local/internet_rx/*
 !tests_local/prescriptions/.gitkeep
 eval/results/*
 !eval/results/.gitkeep
 eval/expected.csv
+
+# Trazo deck (ppt/) build artifacts
+ppt/backup/
+ppt/validation/
+ppt/live_preview/
+ppt/svg_final/
+ppt/analysis/
+ppt/templates/

@@ -18,6 +18,7 @@ from app.config import MATCH_ACCEPT, MATCH_CLOSE_MARGIN, MATCH_REVIEW
 from app.medicines import read_all
 
 _SPACE = re.compile(r"\s+")
+_SQUASH = re.compile(r"[^a-z0-9]+")
 
 
 class MatchKind(str, Enum):
@@ -65,6 +66,45 @@ def normalize(text: str) -> str:
     return _SPACE.sub(" ", (text or "").strip()).casefold()
 
 
+_FORM_TOKENS = {
+    "t", "tab", "tabs", "tablet", "tablets",
+    "cap", "caps", "capsule", "capsules",
+    "syp", "syrup", "inj", "injection", "susp", "suspension",
+}
+
+
+def strip_form_tokens(text: str) -> str:
+    """Drop leading dosage-form words ("T.", "Tab", "Cap"...).
+
+    Prescriptions write the form before the brand ("T. SAZO 500mg"). The form
+    word is not part of the medicine name, so it is removed before comparing.
+    Trailing words stay: "Lucibor lotion" keeps its lotion.
+    """
+    tokens = normalize(text).split()
+    while tokens and tokens[0].rstrip(".") in _FORM_TOKENS:
+        tokens.pop(0)
+    return " ".join(tokens)
+
+
+def _prefix_bonus(query: str, value: str) -> float | None:
+    """A shorthand of a listed name counts as a near-exact match.
+
+    Real prescriptions abbreviate: "HCQ" for HCQS, "Pantop" for Pantop DSR,
+    "Etoricoxib" for Etoricoxib MR. If one name is a prefix of the other and
+    the shorter one is at least 3 characters, that is the same medicine.
+    A prefix that ends on a word boundary scores slightly higher, so
+    "Pantop" prefers "Pantop DSR" over "Pantoprazole".
+    Returns the score to use, or None when the rule does not apply.
+    """
+    if len(query) < 3 or len(value) < 3:
+        return None
+    if query.startswith(value) or value.startswith(query):
+        shorter, longer = (query, value) if len(query) <= len(value) else (value, query)
+        boundary = len(longer) == len(shorter) or longer[len(shorter)] == " "
+        return 96.0 if boundary else 95.0
+    return None
+
+
 def match_name(name, medicines=None, threshold=None) -> MatchResult:
     """Match one read name against the medicine list.
 
@@ -73,7 +113,7 @@ def match_name(name, medicines=None, threshold=None) -> MatchResult:
     missing name, is not found. In every non-accepted case a reason is given.
     """
     threshold = MATCH_ACCEPT if threshold is None else threshold
-    query = normalize(name) if name else ""
+    query = strip_form_tokens(name) if name else ""
 
     if medicines is None:
         medicines = read_all()
@@ -127,8 +167,12 @@ def _score_all(query: str, medicines: list[dict]) -> list[tuple[float, Candidate
     """Every medicine scored against the query, highest first.
 
     A medicine is scored on both its brand and its generic name; its best field
-    decides its score. Ties keep the order the medicines were loaded in.
+    decides its score. Comparison folds case, drops punctuation and merges
+    spaces, so "Emeset-MDS" and "Emeset MDS" score the same. Ties keep the
+    order the medicines were loaded in.
     """
+    query_word = query
+    query_sq = _SQUASH.sub("", query)
     scored = []
     for medicine in medicines:
         brand = medicine.get("brand_name") or ""
@@ -138,7 +182,12 @@ def _score_all(query: str, medicines: list[dict]) -> list[tuple[float, Candidate
         for field_name, value in (("brand_name", brand), ("generic_name", generic)):
             if not value:
                 continue
-            score = fuzz.ratio(query, normalize(value))
+            value_word = normalize(value)
+            value_sq = _SQUASH.sub("", value_word)
+            score = fuzz.ratio(query_sq, value_sq)
+            bonus = _prefix_bonus(query_word, value_word)
+            if bonus is not None and bonus > score:
+                score = bonus
             if score > best_score:
                 best_score = score
                 best_field = field_name
