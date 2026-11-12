@@ -30,3 +30,14 @@ ppt/live_preview/
 ppt/svg_final/
 ppt/analysis/
 ppt/templates/
+# Deck build internals and speaker crib material (local only)
+ppt/notes/
+ppt/sources/
+ppt/icons/
+ppt/spec_lock.md
+ppt/design_spec.md
+ppt/animations.json
+ppt/exports/Trazo_QA_answers.md
+ppt/images/app-result-source.png
+ppt/images/app-result-top.png
+ppt/images/app-retake-top.png

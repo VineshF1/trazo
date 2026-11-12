@@ -1,1 +1,0 @@
-Here is a prescription photo — an anonymized real prescription from a public collection, patient details removed. I point at the slide: this is a real prescription. Doctor handwriting and short dose forms defeat plain reading, and a wrong dose or a skipped medicine is a real risk. That risk is the reason the project exists.

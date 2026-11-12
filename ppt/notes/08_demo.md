@@ -1,1 +1,0 @@
-Now the demo, on a phone, using the camera. The three real screens: home, result, and a caught failure — the blank photo the app refused, with the hatched could-not-read block marked on it. I will run the live demo after this slide. The refusal screen is part of the demo, not an exception to it.

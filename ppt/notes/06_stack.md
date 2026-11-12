@@ -1,1 +1,0 @@
-The stack is deliberately plain — a table is meant to be read, so this slide has no animation. Browser, Python and FastAPI on the server, OpenCV and Pillow for image handling, RapidFuzz for name matching, SQLite for storage, and a ready-made vision model called through an API. Free model API, no training — the accuracy work is in the rules, not the model.

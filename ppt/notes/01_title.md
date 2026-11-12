@@ -1,1 +1,0 @@
-Good morning. This is Trazo — a mini project about reading prescriptions. The one-line promise is on the slide: it is honest about what it cannot read, and the accuracy plan is built to measure that. The name means pen stroke in Spanish — the word beneath is where the reading starts.

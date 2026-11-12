@@ -1,1 +1,0 @@
-I will say the limits before anyone asks. The medicine list covers only the number shown — a name on the list is matched accurately, and a name off it stays Check this. That small list is the real limit: this is not a production system yet. It also reads what is written — it does not check doses. And no clinical validation: a learning project.

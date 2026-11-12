@@ -1,1 +1,0 @@
-Left side: who this is for. Patients and family members, and caregivers managing medicines for elderly parents — people holding a phone. Not for doctors or pharmacists. The gap is on the right: most tools show confident output even when the reading is wrong. Trazo does the opposite — it shows what it could not read.
