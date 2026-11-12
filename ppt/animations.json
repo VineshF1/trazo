@@ -1,0 +1,17 @@
+{
+  "defaults": {
+    "animation": { "effect": "none" }
+  },
+  "slides": {
+    "01_title":   { "transition": { "effect": "fade",       "duration": 0.4 } },
+    "02_problem": { "transition": { "effect": "push",       "duration": 0.4, "effect_options": { "direction": "left" } } },
+    "03_gap":     { "transition": { "effect": "wipe",       "duration": 0.4, "effect_options": { "direction": "left" } } },
+    "04_what":    { "transition": { "effect": "comb",       "duration": 0.5, "effect_options": { "orientation": "horizontal" } } },
+    "05_how":     { "transition": { "effect": "uncover",    "duration": 0.4, "effect_options": { "direction": "left" } } },
+    "06_stack":   { "transition": { "effect": "split",      "duration": 0.5 } },
+    "07_safety":  { "transition": { "effect": "cover",      "duration": 0.4, "effect_options": { "direction": "left" } } },
+    "08_demo":    { "transition": { "effect": "dissolve",   "duration": 0.5 } },
+    "09_limits":  { "transition": { "effect": "blinds",     "duration": 0.5 } },
+    "10_next":    { "transition": { "effect": "circle",     "duration": 0.5 } }
+  }
+}

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content">
+  <rect id="page-bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FAF9F5"/>
+
+  <g id="brand-strip" data-pptx-bounds="72 66 1136 46">
+    <text x="72" y="92" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#171715">trazo</text>
+    <text x="1208" y="92" text-anchor="end" font-family="Arial, sans-serif" font-size="18" fill="#4A4843">04 / 10</text>
+    <line x1="72" y1="104" x2="1208" y2="104" stroke="#171715" stroke-width="1.5"/>
+  </g>
+
+  <g id="headline" data-pptx-bounds="72 126 700 64">
+    <text x="72" y="170" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#171715">What Trazo does</text>
+  </g>
+
+  <g id="what-read" data-pptx-bounds="72 232 680 40">
+    <text x="72" y="258" font-family="Arial, sans-serif" font-size="27" fill="#171715">Reads a prescription photo.</text>
+  </g>
+
+  <g id="what-fields" data-pptx-bounds="72 296 680 82">
+    <text x="72" y="322" font-family="Arial, sans-serif" font-size="27" fill="#171715">Shows medicine, strength, timing</text>
+    <text x="72" y="366" font-family="Arial, sans-serif" font-size="27" fill="#171715">and duration.</text>
+  </g>
+
+  <g id="what-flags" data-pptx-bounds="72 404 680 82">
+    <text x="72" y="430" font-family="Arial, sans-serif" font-size="27" fill="#171715">Marks every unclear word</text>
+    <text x="72" y="474" font-family="Arial, sans-serif" font-size="27" fill="#171715">instead of guessing.</text>
+  </g>
+
+  <g id="banner" data-pptx-bounds="72 512 680 114">
+    <rect x="72" y="516" width="680" height="104" rx="4" fill="none" stroke="#171715" stroke-width="1.5"/>
+    <rect x="72" y="516" width="6" height="104" fill="#1D4ED8"/>
+    <text x="96" y="556" font-family="Arial, sans-serif" font-size="27" fill="#171715">This is a reading aid, not medical advice.</text>
+    <text x="96" y="596" font-family="Arial, sans-serif" font-size="27" fill="#171715">Confirm with your pharmacist.</text>
+  </g>
+
+  <g id="result-mount" data-pptx-bounds="848 210 232 430">
+    <rect x="848" y="210" width="232" height="430" rx="4" fill="#F3F1EA" stroke="#171715" stroke-width="1.5"/>
+    <image href="../images/app-result.png" x="872" y="225" width="185" height="400" preserveAspectRatio="xMidYMid meet"/>
+  </g>
+</svg>

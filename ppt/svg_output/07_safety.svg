@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content">
+  <rect id="page-bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FAF9F5"/>
+
+  <g id="brand-strip" data-pptx-bounds="72 66 1136 46">
+    <text x="72" y="92" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#171715">trazo</text>
+    <text x="1208" y="92" text-anchor="end" font-family="Arial, sans-serif" font-size="18" fill="#4A4843">07 / 10</text>
+    <line x1="72" y1="104" x2="1208" y2="104" stroke="#171715" stroke-width="1.5"/>
+  </g>
+
+  <g id="headline" data-pptx-bounds="72 126 900 64">
+    <text x="72" y="170" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#171715">Safety and privacy design</text>
+  </g>
+
+  <g id="safety-guess" data-pptx-bounds="72 226 940 40">
+    <text x="72" y="254" font-family="Arial, sans-serif" font-size="27" fill="#171715">It never fills an unreadable word - it flags it instead.</text>
+  </g>
+
+  <g id="safety-rule" data-pptx-bounds="72 284 880 34">
+    <text x="72" y="310" font-family="Arial, sans-serif" font-size="27" fill="#171715">Anything it cannot confirm becomes Check this or Unclear.</text>
+  </g>
+
+  <g id="ok-stamp" data-pptx-role="decoration" data-pptx-bounds="968 278 240 52">
+    <rect x="968" y="282" width="240" height="44" rx="4" fill="none" stroke="#7A5200" stroke-width="1.5"/>
+    <text x="1088" y="311" text-anchor="middle" font-family="Arial, sans-serif" font-size="27" fill="#7A5200">Check this</text>
+  </g>
+
+  <g id="safety-warn" data-pptx-bounds="72 352 940 40">
+    <text x="72" y="380" font-family="Arial, sans-serif" font-size="27" fill="#171715">Warning on every result: a reading aid, not medical advice.</text>
+  </g>
+
+  <g id="safety-photo" data-pptx-bounds="72 408 940 40">
+    <text x="72" y="436" font-family="Arial, sans-serif" font-size="27" fill="#171715">No photo is stored, ever.</text>
+  </g>
+
+  <g id="safety-dose" data-pptx-bounds="72 464 940 40">
+    <text x="72" y="492" font-family="Arial, sans-serif" font-size="27" fill="#171715">No dose advice or diagnosis.</text>
+  </g>
+</svg>

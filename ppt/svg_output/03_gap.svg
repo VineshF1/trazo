@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content">
+  <rect id="page-bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FAF9F5"/>
+
+  <g id="brand-strip" data-pptx-bounds="72 66 1136 46">
+    <text x="72" y="92" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#171715">trazo</text>
+    <text x="1208" y="92" text-anchor="end" font-family="Arial, sans-serif" font-size="18" fill="#4A4843">03 / 10</text>
+    <line x1="72" y1="104" x2="1208" y2="104" stroke="#171715" stroke-width="1.5"/>
+  </g>
+
+  <g id="headline" data-pptx-bounds="72 126 900 64">
+    <text x="72" y="170" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#171715">Who it helps, and the gap</text>
+  </g>
+
+  <g id="who-head" data-pptx-bounds="72 218 460 46">
+    <text x="72" y="250" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#171715">Who it helps</text>
+  </g>
+
+  <g id="who-users" data-pptx-bounds="72 312 460 82">
+    <text x="72" y="338" font-family="Arial, sans-serif" font-size="27" fill="#171715">Patients and family members</text>
+    <text x="72" y="382" font-family="Arial, sans-serif" font-size="27" fill="#171715">using a phone.</text>
+  </g>
+
+  <g id="who-care" data-pptx-bounds="72 428 460 82">
+    <text x="72" y="454" font-family="Arial, sans-serif" font-size="27" fill="#171715">Caregivers managing medicines</text>
+    <text x="72" y="498" font-family="Arial, sans-serif" font-size="27" fill="#171715">for elderly parents.</text>
+  </g>
+
+  <g id="who-not" data-pptx-bounds="72 540 460 42">
+    <text x="72" y="566" font-family="Arial, sans-serif" font-size="27" fill="#171715">Not for doctors or pharmacists.</text>
+  </g>
+
+  <g id="split-line" data-pptx-bounds="556 214 8 372">
+    <line x1="560" y1="218" x2="560" y2="582" stroke="#D9D6CF" stroke-width="1.5"/>
+  </g>
+
+  <g id="gap-head" data-pptx-bounds="620 218 588 46">
+    <text x="620" y="250" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#171715">The gap</text>
+  </g>
+
+  <g id="gap-conf" data-pptx-bounds="620 312 588 82">
+    <text x="620" y="338" font-family="Arial, sans-serif" font-size="27" fill="#171715">Most tools show confident output</text>
+    <text x="620" y="382" font-family="Arial, sans-serif" font-size="27" fill="#171715">even when the reading is wrong.</text>
+  </g>
+
+  <g id="gap-truth" data-pptx-bounds="620 428 588 82">
+    <text x="620" y="454" font-family="Arial, sans-serif" font-size="27" font-weight="bold" fill="#1D4ED8">Trazo shows what</text>
+    <text x="620" y="498" font-family="Arial, sans-serif" font-size="27" font-weight="bold" fill="#1D4ED8">it could not read.</text>
+  </g>
+</svg>

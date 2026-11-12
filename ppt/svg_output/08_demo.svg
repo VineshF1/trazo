@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content">
+  <rect id="page-bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FAF9F5"/>
+
+  <g id="brand-strip" data-pptx-bounds="72 66 1136 46">
+    <text x="72" y="92" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#171715">trazo</text>
+    <text x="1208" y="92" text-anchor="end" font-family="Arial, sans-serif" font-size="18" fill="#4A4843">08 / 10</text>
+    <line x1="72" y1="104" x2="1208" y2="104" stroke="#171715" stroke-width="1.5"/>
+  </g>
+
+  <g id="headline" data-pptx-bounds="72 126 500 64">
+    <text x="72" y="170" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#171715">Live demo</text>
+  </g>
+
+  <g id="demo-line" data-pptx-bounds="72 192 1136 40">
+    <text x="72" y="218" font-family="Arial, sans-serif" font-size="27" fill="#1D4ED8">Live demo on a phone, using the camera.</text>
+  </g>
+
+  <g id="shot-home" data-pptx-bounds="280 244 217 388">
+    <rect x="280" y="244" width="217" height="388" rx="4" fill="#F3F1EA" stroke="#171715" stroke-width="1.5"/>
+    <image href="../images/app-home.png" x="292" y="256" width="193" height="340" preserveAspectRatio="xMidYMid meet"/>
+    <text x="388" y="620" text-anchor="middle" font-family="Arial, sans-serif" font-size="27" fill="#171715">Home</text>
+  </g>
+
+  <g id="shot-result" data-pptx-bounds="567 244 181 388">
+    <rect x="567" y="244" width="181" height="388" rx="4" fill="#F3F1EA" stroke="#171715" stroke-width="1.5"/>
+    <image href="../images/app-result.png" x="579" y="256" width="157" height="340" preserveAspectRatio="xMidYMid meet"/>
+    <text x="657" y="620" text-anchor="middle" font-family="Arial, sans-serif" font-size="27" fill="#171715">Result</text>
+  </g>
+
+  <g id="shot-fail" data-pptx-bounds="818 244 181 388">
+    <rect x="818" y="244" width="181" height="388" rx="4" fill="#F3F1EA" stroke="#171715" stroke-width="1.5"/>
+    <image href="../images/app-retake.png" x="830" y="256" width="157" height="340" preserveAspectRatio="xMidYMid meet"/>
+    <text x="908" y="620" text-anchor="middle" font-family="Arial, sans-serif" font-size="27" fill="#171715">Caught failure</text>
+  </g>
+
+  <g id="hatch-block" data-pptx-role="decoration" data-pptx-bounds="832 470 152 56">
+    <rect x="832" y="472" width="152" height="52" fill="#FAF9F5" stroke="#171715" stroke-width="1.5"/>
+    <line x1="836" y1="522" x2="860" y2="474" stroke="#4A4843" stroke-width="1.5"/>
+    <line x1="868" y1="522" x2="892" y2="474" stroke="#4A4843" stroke-width="1.5"/>
+    <line x1="900" y1="522" x2="924" y2="474" stroke="#4A4843" stroke-width="1.5"/>
+    <line x1="932" y1="522" x2="956" y2="474" stroke="#4A4843" stroke-width="1.5"/>
+    <text x="908" y="505" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#B3261E">Could not read</text>
+  </g>
+</svg>

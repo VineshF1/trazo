@@ -1,0 +1,1 @@
+This is the real result screen from the running app. Three things happen: it reads a prescription photo, it shows medicine, strength, timing and duration, and it marks every unclear word instead of guessing. The banner text on the slide is exactly what the app shows on every result — reading aid, not medical advice, confirm with your pharmacist.
